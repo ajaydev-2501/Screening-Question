@@ -1,0 +1,2 @@
+ALTER TABLE "option_scores" DROP CONSTRAINT "option_scores_score_range";--> statement-breakpoint
+ALTER TABLE "option_scores" ADD CONSTRAINT "option_scores_score_range" CHECK (score >= 0 AND score <= 4);

@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+/*
+  The Tournament Scoresheet.
+
+  Tournament bond paper as the ground, a white sheet inset on it, hairline rules carrying every
+  division. Federation navy owns structure and the selected state; current-move ochre owns focus
+  and the live marker and nothing else; flag red and certified green are reserved for state and
+  never used as decoration. Corners are squared at 2-4px because scoresheet boxes are cut, not
+  rounded. Elevation is declared exactly once, on the sheet.
+*/
+
+@theme {
+  --color-paper: #f5f6f4;
+  --color-sheet: #ffffff;
+  --color-ink: #14181c;
+  --color-soft: #5a6470;
+  --color-rule: #d4d8d2;
+  --color-navy: #1c3557;
+  --color-navy-soft: #eef1f5;
+  --color-ochre: #b8801f;
+  --color-flag: #a8322a;
+  --color-certified: #2f6b46;
+
+  --font-sans: var(--font-archivo), "Helvetica Neue", Helvetica, sans-serif;
+  --font-mono: var(--font-chivo), ui-monospace, "SFMono-Regular", monospace;
+
+  --radius-sheet: 2px;
+  --radius-cell: 3px;
+
+  --ease-press: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    /* Every numeral on a scoresheet is a column entry. Proportional figures would make
+       MOVE 07 / 21 jitter as the digits change. */
+    font-variant-numeric: tabular-nums;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Browser surfaces belong to the design too, not to the user agent. */
+  ::selection {
+    background-color: var(--color-navy);
+    color: var(--color-navy-soft);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ochre);
+    outline-offset: 2px;
+  }
+
+  input,
+  textarea {
+    caret-color: var(--color-ochre);
+  }
+
+  * {
+    scrollbar-color: var(--color-rule) transparent;
+    scrollbar-width: thin;
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--color-rule);
+    border: 3px solid var(--color-paper);
+    border-radius: 0;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-soft);
+  }
+}
+
+@utility mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+  The one authored moment: ink flooding a cell.
+
+  A selected option does not fade or scale in — the navy wash sweeps across the band left to right
+  behind text that is already legible, the way a scoresheet cell is filled rather than appeared.
+  Everything else on the page transitions on a plain 120ms colour change, so this stays the single
+  gesture the eye learns.
+*/
+@utility ink-flood {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: var(--color-navy);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 460ms var(--ease-press);
+  }
+
+  &[data-selected="true"]::before {
+    clip-path: inset(0 0 0 0);
+  }
+
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-flood::before {
+    transition-duration: 1ms;
+  }
+}

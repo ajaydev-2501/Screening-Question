@@ -1,0 +1,1 @@
+ALTER TABLE "tool_followups" ALTER COLUMN "primary_agent_key" DROP NOT NULL;

@@ -1,0 +1,405 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T06:21:30.000Z",
+  "title": "Design System: AI Engineering Developer Assessment",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Bond Paper",
+        "canonical": "#f5f6f4",
+        "tonalRamp": [
+          "oklch(15% 0.0028 128.5)",
+          "oklch(26.4% 0.0028 128.5)",
+          "oklch(37.9% 0.0028 128.5)",
+          "oklch(49.3% 0.0028 128.5)",
+          "oklch(60.7% 0.0028 128.5)",
+          "oklch(72.1% 0.0028 128.5)",
+          "oklch(83.6% 0.0028 128.5)",
+          "oklch(95% 0.0028 128.5)"
+        ]
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Sheet White",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15% 0 89.9)",
+          "oklch(26.4% 0 89.9)",
+          "oklch(37.9% 0 89.9)",
+          "oklch(49.3% 0 89.9)",
+          "oklch(60.7% 0 89.9)",
+          "oklch(72.1% 0 89.9)",
+          "oklch(83.6% 0 89.9)",
+          "oklch(95% 0 89.9)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Record Ink",
+        "canonical": "#14181c",
+        "tonalRamp": [
+          "oklch(15% 0.0101 248.3)",
+          "oklch(26.4% 0.0101 248.3)",
+          "oklch(37.9% 0.0101 248.3)",
+          "oklch(49.3% 0.0101 248.3)",
+          "oklch(60.7% 0.0101 248.3)",
+          "oklch(72.1% 0.0101 248.3)",
+          "oklch(83.6% 0.0101 248.3)",
+          "oklch(95% 0.0101 248.3)"
+        ]
+      },
+      "soft": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "#5a6470",
+        "tonalRamp": [
+          "oklch(15% 0.0228 253)",
+          "oklch(26.4% 0.0228 253)",
+          "oklch(37.9% 0.0228 253)",
+          "oklch(49.3% 0.0228 253)",
+          "oklch(60.7% 0.0228 253)",
+          "oklch(72.1% 0.0228 253)",
+          "oklch(83.6% 0.0228 253)",
+          "oklch(95% 0.0228 253)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline Rule",
+        "canonical": "#d4d8d2",
+        "tonalRamp": [
+          "oklch(15% 0.0092 134.9)",
+          "oklch(26.4% 0.0092 134.9)",
+          "oklch(37.9% 0.0092 134.9)",
+          "oklch(49.3% 0.0092 134.9)",
+          "oklch(60.7% 0.0092 134.9)",
+          "oklch(72.1% 0.0092 134.9)",
+          "oklch(83.6% 0.0092 134.9)",
+          "oklch(95% 0.0092 134.9)"
+        ]
+      },
+      "rule-strong": {
+        "role": "neutral",
+        "displayName": "Strong Hairline",
+        "canonical": "#bcc3ca",
+        "tonalRamp": [
+          "oklch(15% 0.0125 248)",
+          "oklch(26.4% 0.0125 248)",
+          "oklch(37.9% 0.0125 248)",
+          "oklch(49.3% 0.0125 248)",
+          "oklch(60.7% 0.0125 248)",
+          "oklch(72.1% 0.0125 248)",
+          "oklch(83.6% 0.0125 248)",
+          "oklch(95% 0.0125 248)"
+        ]
+      },
+      "navy": {
+        "role": "primary",
+        "displayName": "Federation Navy",
+        "canonical": "#1c3557",
+        "tonalRamp": [
+          "oklch(15% 0.0683 256.5)",
+          "oklch(26.4% 0.0683 256.5)",
+          "oklch(37.9% 0.0683 256.5)",
+          "oklch(49.3% 0.0683 256.5)",
+          "oklch(60.7% 0.0683 256.5)",
+          "oklch(72.1% 0.0683 256.5)",
+          "oklch(83.6% 0.0683 256.5)",
+          "oklch(95% 0.0683 256.5)"
+        ]
+      },
+      "navy-deep": {
+        "role": "primary",
+        "displayName": "Deep Federation Navy",
+        "canonical": "#16293f",
+        "tonalRamp": [
+          "oklch(15% 0.0481 253.1)",
+          "oklch(26.4% 0.0481 253.1)",
+          "oklch(37.9% 0.0481 253.1)",
+          "oklch(49.3% 0.0481 253.1)",
+          "oklch(60.7% 0.0481 253.1)",
+          "oklch(72.1% 0.0481 253.1)",
+          "oklch(83.6% 0.0481 253.1)",
+          "oklch(95% 0.0481 253.1)"
+        ]
+      },
+      "navy-soft": {
+        "role": "neutral",
+        "displayName": "Sheet-Blue Tint",
+        "canonical": "#eef1f5",
+        "tonalRamp": [
+          "oklch(15% 0.0063 255.5)",
+          "oklch(26.4% 0.0063 255.5)",
+          "oklch(37.9% 0.0063 255.5)",
+          "oklch(49.3% 0.0063 255.5)",
+          "oklch(60.7% 0.0063 255.5)",
+          "oklch(72.1% 0.0063 255.5)",
+          "oklch(83.6% 0.0063 255.5)",
+          "oklch(95% 0.0063 255.5)"
+        ]
+      },
+      "ochre": {
+        "role": "secondary",
+        "displayName": "Current-Move Ochre",
+        "canonical": "#b8801f",
+        "tonalRamp": [
+          "oklch(15% 0.1252 75.3)",
+          "oklch(26.4% 0.1252 75.3)",
+          "oklch(37.9% 0.1252 75.3)",
+          "oklch(49.3% 0.1252 75.3)",
+          "oklch(60.7% 0.1252 75.3)",
+          "oklch(72.1% 0.1252 75.3)",
+          "oklch(83.6% 0.1252 75.3)",
+          "oklch(95% 0.1252 75.3)"
+        ]
+      },
+      "flag": {
+        "role": "tertiary",
+        "displayName": "Flag Red",
+        "canonical": "#a8322a",
+        "tonalRamp": [
+          "oklch(15% 0.1555 28.1)",
+          "oklch(26.4% 0.1555 28.1)",
+          "oklch(37.9% 0.1555 28.1)",
+          "oklch(49.3% 0.1555 28.1)",
+          "oklch(60.7% 0.1555 28.1)",
+          "oklch(72.1% 0.1555 28.1)",
+          "oklch(83.6% 0.1555 28.1)",
+          "oklch(95% 0.1555 28.1)"
+        ]
+      },
+      "certified": {
+        "role": "tertiary",
+        "displayName": "Certified Green",
+        "canonical": "#2f6b46",
+        "tonalRamp": [
+          "oklch(15% 0.087 154.3)",
+          "oklch(26.4% 0.087 154.3)",
+          "oklch(37.9% 0.087 154.3)",
+          "oklch(49.3% 0.087 154.3)",
+          "oklch(60.7% 0.087 154.3)",
+          "oklch(72.1% 0.087 154.3)",
+          "oklch(83.6% 0.087 154.3)",
+          "oklch(95% 0.087 154.3)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display — Question & Hero",
+        "purpose": "Question prompts (2rem / 1.65rem mobile) and the landing hero (3rem / 2.1rem mobile). Balanced text, never wider than 38ch."
+      },
+      "title": {
+        "displayName": "Title — Screen Headings",
+        "purpose": "Confirm, submitted, and staff screen headings; steps between 1.5 and 2.2rem across surfaces."
+      },
+      "body": {
+        "displayName": "Body — Prose & Options",
+        "purpose": "Option labels (15.5→17px), lead prose (16→17px / 1.65), notes and captions (12.5–13.5px)."
+      },
+      "label": {
+        "displayName": "Label — Tracked Mono",
+        "purpose": "Uppercase mono micro-labels, field and column names, counters, badges, footer hints; tracking 0.12–0.20em in soft ink."
+      },
+      "notation": {
+        "displayName": "Notation — Counters & Score",
+        "purpose": "The large move-gutter numeral (2.2→2.6rem bold mono) and every tabular numeral: counters, dates, scores, counts."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-press",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The easing of the one authored moment: the ink-flood selection sweep."
+      },
+      {
+        "name": "ink-flood",
+        "value": "clip-path 460ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Selected option bands and inventory rows flood with navy from inset(0 100% 0 0) to inset(0 0 0 0), the way a scoresheet cell is filled. Reduced motion collapses it to 1ms."
+      },
+      {
+        "name": "state-color",
+        "value": "color/background/border-color 150ms",
+        "purpose": "The default for every other state change (hover washes, label knock-out, focus colour). No transform, no scale."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Sheet Header",
+      "kind": "custom",
+      "description": "The sheet's masthead: navy seal, tracked uppercase title, mono move counter, and save-state mark. Worn unchanged by every candidate and staff screen.",
+      "html": "<header class=\"ds-sheet-header\"><span class=\"ds-sheet-header__identity\"><span class=\"ds-seal\"></span><span class=\"ds-sheet-header__title\">AI Engineering Developer Assessment</span></span><span class=\"ds-sheet-header__meta\"><span class=\"ds-move-counter\">MOVE <b>07</b><span class=\"ds-move-counter__total\"> / 21</span></span><span class=\"ds-save-status\"><span class=\"ds-save-mark ds-save-mark--saved\"></span>PROGRESS SAVED</span></span></header>",
+      "css": ".ds-sheet-header{display:flex;height:56px;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--color-rule);background:var(--color-sheet);padding:0 28px;font-family:Archivo,'Helvetica Neue',Helvetica,sans-serif;}\n.ds-sheet-header__identity{display:flex;min-width:0;align-items:center;gap:14px;}\n.ds-seal{display:block;width:11px;height:11px;flex-shrink:0;background:var(--color-navy);}\n.ds-sheet-header__title{font-size:11.5px;font-weight:700;letter-spacing:.19em;text-transform:uppercase;color:var(--color-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}\n.ds-sheet-header__meta{display:flex;flex-shrink:0;align-items:center;gap:16px;}\n.ds-move-counter{font-family:'Chivo Mono',ui-monospace,SFMono-Regular,monospace;font-variant-numeric:tabular-nums;font-size:11px;letter-spacing:.14em;color:var(--color-soft);}\n.ds-move-counter b{font-size:13px;font-weight:700;letter-spacing:normal;color:var(--color-ink);}\n.ds-move-counter__total{color:var(--color-soft);}\n.ds-save-status{display:flex;align-items:center;gap:8px;font-family:'Chivo Mono',ui-monospace,SFMono-Regular,monospace;font-size:11px;letter-spacing:.14em;color:var(--color-soft);}\n.ds-save-mark{display:block;box-sizing:border-box;width:10px;height:10px;flex-shrink:0;}\n.ds-save-mark--saved{background:var(--color-certified);}\n.ds-save-mark--saving{border:1px dashed var(--color-ochre);}\n.ds-save-mark--error{border:2px solid var(--color-flag);}"
+    },
+    {
+      "name": "Ruled Row",
+      "kind": "custom",
+      "description": "The scoresheet's label/value furniture: a mono tracked label column, a value column, hairline rules between rows. Used by the landing conditions, entry form, confirm rows, and submitted facts.",
+      "html": "<div class=\"ds-ruled-row\"><span class=\"ds-ruled-row__label\">Decisions</span><span class=\"ds-ruled-row__value\">20 of 20 recorded</span></div>",
+      "css": ".ds-ruled-row{box-sizing:border-box;display:grid;grid-template-columns:120px minmax(0,1fr);gap:20px;align-items:start;border:1px solid var(--color-rule);border-top:0;background:var(--color-sheet);padding:16px 20px;}\n.ds-ruled-row__label{font-family:'Chivo Mono',ui-monospace,SFMono-Regular,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-soft);padding-top:3px;}\n.ds-ruled-row__value{font-family:Archivo,'Helvetica Neue',Helvetica,sans-serif;font-size:14.5px;line-height:1.55;color:var(--color-ink);}"
+    },
+    {
+      "name": "Option Band",
+      "kind": "input",
+      "refersTo": "option-band",
+      "description": "One of the four ruled option bands a move presents. Selection is the navy ink-flood sweep — never an outline, border, or fade.",
+      "html": "<label class=\"ds-option-band\"><input type=\"radio\" name=\"ds-move\" class=\"ds-option-band__input\"><span class=\"ds-option-band__letter\" aria-hidden=\"true\">A</span><span class=\"ds-option-band__label\">Map the affected call sites and contracts, add or update regression tests, and validate critical dependent flows.</span><span class=\"ds-option-band__key\" aria-hidden=\"true\">1</span></label>",
+      "css": ".ds-option-band{box-sizing:border-box;position:relative;isolation:isolate;display:flex;align-items:center;min-height:92px;cursor:pointer;border:1px solid var(--color-rule);border-top:0;background:var(--color-sheet);font-family:Archivo,'Helvetica Neue',Helvetica,sans-serif;}\n.ds-option-band:first-of-type{border-top:1px solid var(--color-rule);}\n.ds-option-band::before{content:'';position:absolute;inset:0;z-index:0;background:var(--color-navy);clip-path:inset(0 100% 0 0);transition:clip-path 460ms cubic-bezier(.16,1,.3,1);}\n.ds-option-band:has(input:checked)::before{clip-path:inset(0 0 0 0);}\n.ds-option-band>*{position:relative;z-index:1;}\n.ds-option-band__input{position:absolute;width:1px;height:1px;opacity:0;}\n.ds-option-band__letter{box-sizing:border-box;display:flex;width:58px;align-self:stretch;align-items:center;justify-content:center;border-right:1px solid var(--color-rule);font-family:'Chivo Mono',ui-monospace,SFMono-Regular,monospace;font-variant-numeric:tabular-nums;font-size:15px;font-weight:700;color:var(--color-soft);transition:color 150ms,border-color 150ms;}\n.ds-option-band__label{max-width:68ch;padding:16px 28px;font-size:17px;line-height:1.5;color:var(--color-ink);transition:color 150ms;}\n.ds-option-band__key{box-sizing:border-box;margin-left:auto;margin-right:20px;display:flex;height:26px;width:30px;align-items:center;justify-content:center;border:1px solid var(--color-rule);font-family:'Chivo Mono',ui-monospace,SFMono-Regular,monospace;font-variant-numeric:tabular-nums;font-size:11px;color:var(--color-soft);transition:color 150ms,border-color 150ms;}\n.ds-option-band:hover:not(:has(input:checked)){background:var(--color-paper);}\n.ds-option-band:has(input:focus-visible){outline:2px solid var(--color-ochre);outline-offset:-2px;}\n.ds-option-band:has(input:checked) .ds-option-band__letter{color:#fff;border-right-color:rgba(238,241,245,.25);}\n.ds-option-band:has(input:checked) .ds-option-band__label{color:var(--color-navy-soft);}\n.ds-option-band:has(input:checked) .ds-option-band__key{color:var(--color-navy-soft);border-color:rgba(238,241,245,.4);}\n@media (prefers-reduced-motion: reduce){.ds-option-band::before{transition-duration:1ms;}}"
+    },
+    {
+      "name": "Move Rail",
+      "kind": "nav",
+      "description": "Twenty-one equal steps at the sheet's left edge. Filled = answered, hollow = unanswered, half-ochre ring = current, dashed = saving, hollow with a 45-degree strike = declined. The boxed result cell holds an em dash until the record reads FILED.",
+      "html": "<nav class=\"ds-move-rail\" aria-label=\"Assessment progress: move 7 of 21\"><div class=\"ds-move-rail__head\"><span>MOVES</span><span>21</span></div><ul class=\"ds-move-rail__list\"><li><span class=\"ds-mark ds-mark--answered\"></span><span class=\"ds-mark__line\"></span></li><li><span class=\"ds-mark ds-mark--answered\"></span><span class=\"ds-mark__line\"></span></li><li><span class=\"ds-mark ds-mark--answered\"></span><span class=\"ds-mark__line\"></span></li><li><span class=\"ds-mark ds-mark--unanswered\"></span><span class=\"ds-mark__line\"></span></li><li><span class=\"ds-mark ds-mark--pending\"></span><span class=\"ds-mark__line\"></span></li><li><span class=\"ds-mark ds-mark--skipped\"></span><span class=\"ds-mark__line\"></span></li><li><span class=\"ds-mark ds-mark--current\"></span><span class=\"ds-mark__line ds-mark__line--current\"></span></li><li><span class=\"ds-mark ds-mark--unanswered\"></span><span class=\"ds-mark__line\"></span></li><li><span class=\"ds-mark ds-mark--unanswered\"></span><span class=\"ds-mark__line\"></span></li></ul><div class=\"ds-move-rail__result\"><span class=\"ds-move-rail__result-label\">RESULT</span><span class=\"ds-result-cell\">&mdash;</span></div></nav>",
+      "css": ".ds-move-rail{box-sizing:border-box;display:flex;flex-direction:column;width:104px;border-right:1px solid var(--color-rule);background:var(--color-sheet);padding:20px 16px 16px;font-family:'Chivo Mono',ui-monospace,SFMono-Regular,monospace;}\n.ds-move-rail__head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--color-rule);padding-bottom:8px;font-size:11px;letter-spacing:.18em;color:var(--color-soft);}\n.ds-move-rail__list{list-style:none;margin:12px 0 0;padding:0;}\n.ds-move-rail__list li{display:flex;align-items:center;gap:10px;height:22px;}\n.ds-mark{box-sizing:border-box;display:block;width:12px;height:12px;flex-shrink:0;}\n.ds-mark--answered{background:var(--color-navy);}\n.ds-mark--unanswered{border:1px solid rgba(90,100,112,.45);background:var(--color-sheet);}\n.ds-mark--pending{border:1px dashed var(--color-ochre);background:var(--color-sheet);}\n.ds-mark--current{border:2px solid var(--color-ochre);background:linear-gradient(90deg,var(--color-ochre) 50%,#fff 50%);}\n.ds-mark__line{flex:1;height:1px;background:var(--color-rule);}\n.ds-mark__line--current{height:2px;background:var(--color-ochre);}\n.ds-move-rail__result{margin-top:auto;padding-top:16px;}\n.ds-move-rail__result-label{display:block;margin-bottom:6px;font-size:10px;letter-spacing:.2em;color:var(--color-soft);}\n.ds-result-cell{box-sizing:border-box;display:flex;height:26px;align-items:center;justify-content:center;border:1px solid var(--color-rule);font-size:12px;color:var(--color-soft);}\n.ds-mark--skipped{border:1px solid rgba(90,100,112,.45);background:linear-gradient(to top right,transparent calc(50% - .6px),var(--color-soft) calc(50% - .6px),var(--color-soft) calc(50% + .6px),transparent calc(50% + .6px));}"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The sheet's one loud control — Next move, Begin the assessment, Sign in, Submit this record, Apply. Navy fill, square, mono uppercase label; hover deepens to #16293f.",
+      "html": "<button type=\"button\" class=\"ds-btn-primary\">Next move<b class=\"ds-btn-primary__next\">02</b></button>",
+      "css": ".ds-btn-primary{box-sizing:border-box;display:inline-flex;height:48px;align-items:center;gap:12px;border:1px solid var(--color-navy);background:var(--color-navy);padding:0 24px;font-family:'Chivo Mono',ui-monospace,SFMono-Regular,monospace;font-variant-numeric:tabular-nums;font-size:11.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#fff;cursor:pointer;transition:background 150ms,border-color 150ms;}\n.ds-btn-primary:hover{background:#16293f;border-color:#16293f;}\n.ds-btn-primary:focus-visible{outline:2px solid var(--color-ochre);outline-offset:2px;}\n.ds-btn-primary:disabled{border-color:var(--color-rule);background:var(--color-rule);color:var(--color-soft);cursor:not-allowed;}\n.ds-btn-primary__next{border-left:1px solid rgba(255,255,255,.3);padding-left:12px;font-size:12px;font-weight:400;letter-spacing:normal;color:rgba(238,241,245,.75);}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "The quiet control — Back, Back to the sheet, Export CSV. Sheet fill with the strong hairline border (#bcc3ca), ink label; hover is a paper wash.",
+      "html": "<button type=\"button\" class=\"ds-btn-secondary\">Back</button>",
+      "css": ".ds-btn-secondary{box-sizing:border-box;display:inline-flex;height:48px;align-items:center;border:1px solid #bcc3ca;background:var(--color-sheet);padding:0 24px;font-family:'Chivo Mono',ui-monospace,SFMono-Regular,monospace;font-size:11.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--color-ink);cursor:pointer;transition:background 150ms,border-color 150ms;} .ds-btn-secondary:hover{background:var(--color-paper);} .ds-btn-secondary:focus-visible{outline:2px solid var(--color-ochre);outline-offset:2px;}"
+    },
+    {
+      "name": "Underline Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "The entry and admin field: transparent, square, one bottom hairline in the rule colour, 17px text, ochre caret. Focus shifts the hairline to ochre — no glow, no ring.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field__label\">Name</span><span class=\"ds-field__control\"><input class=\"ds-field__input\" placeholder=\"Given name\"></span></label>",
+      "css": ".ds-field{box-sizing:border-box;display:grid;grid-template-columns:120px minmax(0,1fr);gap:20px;align-items:center;border:1px solid var(--color-rule);border-top:0;background:var(--color-sheet);padding:16px 20px;}\n.ds-field__label{font-family:'Chivo Mono',ui-monospace,SFMono-Regular,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-soft);}\n.ds-field__input{box-sizing:border-box;width:100%;border:0;border-bottom:1px solid var(--color-rule);background:transparent;padding:0 0 4px;font-family:Archivo,'Helvetica Neue',Helvetica,sans-serif;font-size:17px;color:var(--color-ink);caret-color:var(--color-ochre);}\n.ds-field__input::placeholder{color:var(--color-soft);}\n.ds-field__input:focus{outline:none;border-bottom-color:var(--color-ochre);}"
+    },
+    {
+      "name": "Skip Control",
+      "kind": "custom",
+      "refersTo": "button-tertiary",
+      "description": "The quiet footer control on every question and the inventory. A mono 11.5px soft-ink uppercase label that underlines on hover and shifts to ink; it disables to 50% soft ink while a write is pending, and the S key fires it. Never a styled button - it sits beside the primary Next, not against it.",
+      "html": "<button type=\"button\" class=\"ds-skip\">Skip<span class=\"ds-skip__full\"> question</span></button>",
+      "css": ".ds-skip{box-sizing:border-box;display:inline-flex;height:44px;align-items:center;border:0;background:none;padding:0 8px;font-family:'Chivo Mono',ui-monospace,SFMono-Regular,monospace;font-size:11.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--color-soft);cursor:pointer;transition:color 150ms;} .ds-skip:hover{color:var(--color-ink);text-decoration:underline;text-underline-offset:4px;} .ds-skip:focus-visible{outline:2px solid var(--color-ochre);outline-offset:2px;} .ds-skip:disabled{color:rgba(90,100,112,.5);cursor:not-allowed;text-decoration:none;} .ds-skip__full{display:none;} @media (min-width:640px){.ds-skip__full{display:inline;}} @media (min-width:768px){.ds-skip{height:48px;padding:0 12px;}}"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "filter-chip",
+      "description": "The inventory's category filters: square mono letter chips. Active is a navy fill with white text; resting is sheet white with a hairline that darkens to navy on hover.",
+      "html": "<div class=\"ds-chip-row\"><button type=\"button\" class=\"ds-chip ds-chip--active\" aria-pressed=\"true\">All</button><button type=\"button\" class=\"ds-chip\" aria-pressed=\"false\">A</button><button type=\"button\" class=\"ds-chip\" aria-pressed=\"false\">B</button></div>",
+      "css": ".ds-chip-row{display:flex;flex-wrap:wrap;gap:6px;}\n.ds-chip{box-sizing:border-box;min-width:30px;border:1px solid var(--color-rule);background:var(--color-sheet);padding:4px 8px;font-family:'Chivo Mono',ui-monospace,SFMono-Regular,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-soft);cursor:pointer;transition:color 150ms,border-color 150ms,background 150ms;}\n.ds-chip:hover{border-color:var(--color-navy);color:var(--color-navy);}\n.ds-chip:focus-visible{outline:2px solid var(--color-ochre);outline-offset:2px;}\n.ds-chip--active{border-color:var(--color-navy);background:var(--color-navy);color:#fff;}\n.ds-chip--active:hover{background:#16293f;border-color:#16293f;color:#fff;}"
+    },
+    {
+      "name": "Filed Stamp",
+      "kind": "custom",
+      "refersTo": "filed-stamp",
+      "description": "The submitted screen's boxed stamp: a 2px certified-green border around the FILED word (mono 15px, tracking 0.4em) with the UTC filing date beneath in soft ink.",
+      "html": "<div class=\"ds-filed-stamp\"><span class=\"ds-filed-stamp__word\">FILED</span><span class=\"ds-filed-stamp__date\">16 October 2026 at 08:09 UTC</span></div>",
+      "css": ".ds-filed-stamp{box-sizing:border-box;display:inline-block;border:2px solid var(--color-certified);background:var(--color-sheet);padding:16px 28px;}\n.ds-filed-stamp__word{display:block;font-family:'Chivo Mono',ui-monospace,SFMono-Regular,monospace;font-size:15px;font-weight:700;letter-spacing:.4em;line-height:1;color:var(--color-certified);}\n.ds-filed-stamp__date{display:block;margin-top:10px;font-family:'Chivo Mono',ui-monospace,SFMono-Regular,monospace;font-size:11px;letter-spacing:.16em;line-height:1;color:var(--color-soft);}"
+    },
+    {
+      "name": "Browser Surfaces",
+      "kind": "custom",
+      "description": "The user agent's own surfaces, themed: navy selection with sheet-blue ink, ochre focus outline (2px, offset 2px), ochre caret, and thin square scrollbars in hairline rule.",
+      "html": "<div class=\"ds-browser-demo\"><p class=\"ds-browser-demo__line\">Select this paragraph &mdash; the native selection wears federation navy with sheet-blue ink.</p><label class=\"ds-browser-demo__label\">Focus me<input class=\"ds-browser-demo__input\" value=\"The caret is ochre\"></label><div class=\"ds-browser-demo__scroll\"><p>Scrollbar thumb: hairline rule with a 3px paper inset border, square corners.</p><p>Second line of the ruled column.</p><p>Third line of the ruled column.</p></div></div>",
+      "css": ".ds-browser-demo{box-sizing:border-box;display:grid;gap:14px;border:1px solid var(--color-rule);background:var(--color-sheet);padding:20px;font-family:Archivo,'Helvetica Neue',Helvetica,sans-serif;font-size:15px;line-height:1.6;color:var(--color-ink);}\n.ds-browser-demo ::selection{background:var(--color-navy);color:var(--color-navy-soft);}\n.ds-browser-demo *:focus-visible{outline:2px solid var(--color-ochre);outline-offset:2px;}\n.ds-browser-demo__label{font-size:12.5px;color:var(--color-soft);}\n.ds-browser-demo__input{box-sizing:border-box;width:100%;margin-top:6px;border:1px solid var(--color-rule);background:transparent;padding:8px 12px;font:inherit;color:var(--color-ink);caret-color:var(--color-ochre);}\n.ds-browser-demo__input:focus{border-color:var(--color-ochre);outline:none;}\n.ds-browser-demo__scroll{max-height:64px;overflow-y:auto;border-top:1px solid var(--color-rule);padding-top:8px;scrollbar-width:thin;scrollbar-color:var(--color-rule) transparent;font-family:'Chivo Mono',ui-monospace,SFMono-Regular,monospace;font-size:11px;letter-spacing:.06em;color:var(--color-soft);}\n.ds-browser-demo__scroll::-webkit-scrollbar{width:10px;height:10px;}\n.ds-browser-demo__scroll::-webkit-scrollbar-track{background:transparent;}\n.ds-browser-demo__scroll::-webkit-scrollbar-thumb{background-color:var(--color-rule);border:3px solid var(--color-paper);border-radius:0;}\n.ds-browser-demo__scroll::-webkit-scrollbar-thumb:hover{background-color:var(--color-soft);}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Tournament Scoresheet",
+    "overview": "An assessment is a game record, not a form. Every answer is a logged move in one continuous sequence, and the outcome is published as a rating — an estimate offered to an arbiter, never a verdict. The whole interface is FIDE chess tournament paperwork: one continuous white sheet filling the browser edge to edge, hairline rules carrying every division, every entry written into a ruled cell. The candidate watches the scoresheet fill in as they answer; the recruiter reads the same sheet as a record of the candidate's decisions.\n\nThe material logic is stationery, not software chrome. The sheet no longer sits on a table — it is the page itself, and bond paper survives only as a wash and tint behind quiet controls and header rows. There is no depth and no shadow anywhere; every division is a 1px rule. Corners are cut, not rounded. State is always carried by mark form as well as colour: filled, hollow, half-filled, dashed. There is exactly one authored motion: a selected cell floods with navy the way a scoresheet cell is filled in, not the way a web card fades in.\n\nThe world refuses the category default for hiring quizzes — the centred question on pure white, four floating rounded cards, and a thin progress bar. It also honours two binding translations of its own: the move rail is twenty-one equal steps that carry no information about how questions are grouped or weighted, and no candidate-facing surface shows a score, a tally, or anything that implies pass or fail. The candidate is never rushed: no timer, no countdown, no auto-advance, no urgency styling anywhere.",
+    "keyCharacteristics": [
+      "A single white sheet (#ffffff) filling the viewport edge to edge; bond paper (#f5f6f4) survives only as a wash and tint; no elevation anywhere.",
+      "Hairline rules (1px, #d4d8d2) carry every division; no card shadows, no floating panels.",
+      "Federation navy owns structure, selection, and primary action; ochre owns focus and the current move only; flag red and certified green are reserved for state and never decoration.",
+      "Square corners everywhere — cut, not rounded.",
+      "Two self-hosted faces: Archivo for prose and headings; Chivo Mono, tabular figures, for every numeral, identifier, notation column, and control label.",
+      "State carried by mark form as well as colour (filled / hollow / inverted half / dashed; square / dashed / ringed).",
+      "One authored motion: the 460ms ink-flood selection sweep."
+    ],
+    "rules": [
+      {
+        "name": "The Reserved-State Rule",
+        "body": "Flag red and certified green are state colours only — failure and confirmed completion. They never decorate. A surface that wants more colour gets a hairline, not a hue.",
+        "section": "colors"
+      },
+      {
+        "name": "The Live-Marker Rule",
+        "body": "Ochre appears only as focus and as the current move (ring, 2px rule, 3px tick, dashes). It never fills a surface and never becomes the selected state — all 8% washes and alpha borders derive from the source colours rather than new tints.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Record Rule",
+        "body": "Every numeral that can change — move counters, move numbers, dates, character counts, catalogue counts, scores — is set in Chivo Mono with tabular figures. The sans face never carries a data numeral, and the mono is never a costume over prose.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tracked Label Rule",
+        "body": "Micro-labels are uppercase mono, tracked 0.12–0.20em, in soft ink. They name fields and columns; they never sit above a headline as a kicker.",
+        "section": "typography"
+      },
+      {
+        "name": "The Equal Steps Rule",
+        "body": "The rail is twenty-one equal steps. No step is taller, wider, or labelled differently from another, and no break or heading may reveal how the questions are grouped or weighted. The rail communicates position and completion — nothing else.",
+        "section": "layout"
+      },
+      {
+        "name": "The No-Elevation Rule",
+        "body": "No element in the product carries a shadow — not a button, band, chip, table, hover state, or page frame. Surfaces separate by hairline rule or the paper wash, never by elevation or a second background plane.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Cut-Corner Rule",
+        "body": "Corners are square everywhere; the reserved radius tokens (2px sheet, 3px cell) exist only for fine sheet detailing. The single circle in the system is the radio marker — a control affordance, not a decorative shape.",
+        "section": "shapes"
+      },
+      {
+        "name": "The Flood-Not-Outline Rule",
+        "body": "Selection is a navy flood, swept across the band by the ink-flood clip-path (460ms, ease-press). Selection is never an outline, a border thickening, or a fade.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "**Do** divide the sheet with 1px hairlines (#d4d8d2) instead of adding cards, panels, or shadows.",
+      "**Do** flood the navy selection with the ink-flood sweep (460ms, cubic-bezier(0.16, 1, 0.3, 1)) and knock the letter cell to pure white, the label to #eef1f5.",
+      "**Do** carry every state by mark form as well as colour: filled/hollow/half/dashed rail marks, square/dashed/ringed save marks, lettered key boxes.",
+      "**Do** set every numeral in Chivo Mono with tabular figures — `MOVE 07 / 21`, dates, character counts, catalogue counts.",
+      "**Do** keep candidate-facing surfaces free of score, tally, or pass/fail framing; the result cell stays an em dash until the record reads FILED.",
+      "**Do** keep the sheet the only elevated surface; hover answers are a paper wash (#f5f6f4) or a one-step navy deepen (#16293f)."
+    ],
+    "donts": [
+      "**Don't** add shadows anywhere — buttons, bands, chips, tables, hover states, or page frames.",
+      "**Don't** use flag red or certified green as decoration, brand accents, or category colours — they mean failure and confirmed completion, nothing else.",
+      "**Don't** use ochre as a fill, selection, or hover background; it belongs to focus and the current move only.",
+      "**Don't** round corners — the inventory radio marker is the sole circular form, and it is a control affordance, not decoration.",
+      "**Don't** use glyph characters or icon fonts as icons; every mark is drawn — inline SVG strokes at 1.2–1.6px with square caps, matching the hairline weight, at 0°, 45°, or 90°.",
+      "**Don't** use the mono face as a costume over prose, or the sans face for data numerals.",
+      "**Don't** add a timer, countdown, auto-advance, or any urgency treatment to candidate surfaces; the world is deliberately clockless."
+    ]
+  }
+}
