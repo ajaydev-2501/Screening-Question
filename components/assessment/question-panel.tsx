@@ -47,9 +47,12 @@ export function QuestionPanel({
               key={option.key}
               data-selected={selected}
               className={cn(
-                "ink-flood flex min-h-[92px] cursor-pointer items-center border-t border-rule first:border-t-0 md:min-h-[102px]",
+                "ink-flood flex min-h-[92px] items-center border-t border-rule first:border-t-0 md:min-h-[102px]",
+                locked
+                  ? "cursor-not-allowed pointer-events-none"
+                  : "cursor-pointer",
                 "has-[:focus-visible]:outline-2 has-[:focus-visible]:-outline-offset-2 has-[:focus-visible]:outline-ochre",
-                !selected && "transition-colors duration-150 hover:bg-paper",
+                !selected && !locked && "transition-colors duration-150 hover:bg-paper",
               )}
             >
               <input

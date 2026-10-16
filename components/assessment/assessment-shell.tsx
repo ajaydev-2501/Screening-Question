@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 
+import { ButtonLoader, ClickShield } from "@/components/assessment/button-loader";
 import { MoveRail } from "@/components/assessment/move-rail";
+import { ParticleFlow } from "@/components/assessment/particle-flow";
 import { QuestionPanel, type PanelOption } from "@/components/assessment/question-panel";
 import { ToolInventoryPanel } from "@/components/assessment/tool-inventory-panel";
 import { Seal, SaveMark } from "@/components/scoresheet/marks";
@@ -51,6 +53,7 @@ export function AssessmentShell({
   screen: ShellScreen;
 }) {
   const router = useRouter();
+  const [isNavigating, startTransition] = useTransition();
 
   // The page remounts this shell per move (key={move}), so every piece of per-move state below
   // seeds itself from the server props on mount: navigating back re-reads the saved choice instead
@@ -64,6 +67,9 @@ export function AssessmentShell({
   const [skipped] = useState<ReadonlySet<number>>(() => new Set(skippedMoves));
   const [pendingMove, setPendingMove] = useState<number | null>(null);
   const [saving, setSaving] = useState(false);
+  const [isSavingAnswer, setIsSavingAnswer] = useState(false);
+  const [isSavingSkip, setIsSavingSkip] = useState(false);
+  const advanceQueuedRef = useRef(false);
   const [queued, setQueued] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [retry, setRetry] = useState<(() => void) | null>(null);
@@ -91,9 +97,13 @@ export function AssessmentShell({
     },
   };
 
+  const backHref = move > 1 ? `/assessment?move=${move - 1}` : "/";
+  const nextHref = move < total ? `/assessment?move=${move + 1}` : "/assessment/confirm";
+
   const persistAnswer = useCallback(
     (questionKey: string, optionKey: string) => {
       const send = () => {
+        setIsSavingAnswer(true);
         channel.start();
         setPendingMove(move);
 
@@ -105,17 +115,28 @@ export function AssessmentShell({
           .then(async (response) => {
             if (response.ok) {
               channel.succeed();
+              setIsSavingAnswer(false);
+              if (advanceQueuedRef.current) {
+                advanceQueuedRef.current = false;
+                startTransition(() => {
+                  router.push(nextHref);
+                });
+              }
               return;
             }
             const payload = (await response.json().catch(() => null)) as
               | { error?: string }
               | null;
+            setIsSavingAnswer(false);
+            advanceQueuedRef.current = false;
             channel.fail(
               payload?.error ?? "Your answer could not be saved. Check your connection and retry.",
               send,
             );
           })
           .catch(() => {
+            setIsSavingAnswer(false);
+            advanceQueuedRef.current = false;
             channel.fail("Your answer could not be saved. Check your connection and retry.", send);
           });
       };
@@ -125,7 +146,7 @@ export function AssessmentShell({
     // channel is rebuilt every render; depending on it would re-create persistAnswer constantly and
     // re-run the effect below. The setters it closes over are stable.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [move],
+    [move, nextHref, router, startTransition],
   );
 
   const handleSelect = useCallback(
@@ -148,14 +169,18 @@ export function AssessmentShell({
   const undecided =
     screen.kind === "question" && selectedKey === null && !skipped.has(move);
   const advanceBlocked = blocked || undecided;
-  const backHref = move > 1 ? `/assessment?move=${move - 1}` : "/";
-  const nextHref = move < total ? `/assessment?move=${move + 1}` : "/assessment/confirm";
+
+  // Backend processing states
+  const isNextProcessing = isSavingAnswer || (saving && !isSavingSkip) || isNavigating;
+  const isSkipProcessing = isSavingSkip;
+  const isProcessing = isNextProcessing || isSkipProcessing;
 
   // Skipping writes the decline to the sheet like any answer, then moves on the same way Next
   // does. It is a separate write rather than "advance without saving" so the record can never
   // confuse a skip with an omission.
   const persistSkip = useCallback(() => {
     const send = () => {
+      setIsSavingSkip(true);
       channel.start();
       setPendingMove(move);
 
@@ -171,18 +196,22 @@ export function AssessmentShell({
           if (response.ok) {
             channel.succeed();
             if (isQuestion) setSelectedKey(null);
-            router.push(nextHref);
+            startTransition(() => {
+              router.push(nextHref);
+            });
             return;
           }
           const payload = (await response.json().catch(() => null)) as
             | { error?: string }
             | null;
+          setIsSavingSkip(false);
           channel.fail(
             payload?.error ?? "This move could not be skipped. Check your connection and retry.",
             send,
           );
         })
         .catch(() => {
+          setIsSavingSkip(false);
           channel.fail(
             "This move could not be skipped. Check your connection and retry.",
             send,
@@ -194,22 +223,68 @@ export function AssessmentShell({
     // channel is rebuilt every render; depending on it would re-create persistSkip constantly.
     // The setters it closes over are stable.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [move, nextHref, router, screen]);
+  }, [move, nextHref, router, screen, startTransition]);
 
   const handleSkip = useCallback(() => {
-    if (blocked) return;
+    if (blocked || isProcessing) return;
     persistSkip();
-  }, [blocked, persistSkip]);
+  }, [blocked, isProcessing, persistSkip]);
 
   const goNext = useCallback(() => {
-    if (!advanceBlocked) router.push(nextHref);
-  }, [advanceBlocked, nextHref, router]);
+    if (isProcessing) {
+      if (isNextProcessing && saving) {
+        advanceQueuedRef.current = true;
+      }
+      return;
+    }
+    if (advanceBlocked) {
+      if (saving || queued) {
+        advanceQueuedRef.current = true;
+      }
+      return;
+    }
+    startTransition(() => {
+      router.push(nextHref);
+    });
+  }, [advanceBlocked, isNextProcessing, isProcessing, nextHref, queued, router, saving, startTransition]);
+
+  const handleNextClick = useCallback(
+    (event: React.MouseEvent) => {
+      if (isProcessing) {
+        event.preventDefault();
+        if (isNextProcessing && saving) {
+          advanceQueuedRef.current = true;
+        }
+        return;
+      }
+      if (advanceBlocked) {
+        event.preventDefault();
+        if (saving || queued) {
+          advanceQueuedRef.current = true;
+        }
+        return;
+      }
+      event.preventDefault();
+      startTransition(() => {
+        router.push(nextHref);
+      });
+    },
+    [advanceBlocked, isNextProcessing, isProcessing, nextHref, queued, router, saving, startTransition],
+  );
 
   // 1-4 selects, S skips, Enter continues. All are additions on top of the native radio keyboard
   // model, never a replacement for it, so the flow still works with the arrow keys alone.
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.metaKey || event.ctrlKey || event.altKey) return;
+
+      if (isProcessing) {
+        if (event.key === "Enter" && isNextProcessing && saving) {
+          advanceQueuedRef.current = true;
+        }
+        event.preventDefault();
+        return;
+      }
 
       const target = event.target as HTMLElement | null;
       const inField =
@@ -242,7 +317,7 @@ export function AssessmentShell({
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [goNext, handleSelect, handleSkip, screen]);
+  }, [goNext, handleSelect, handleSkip, isNextProcessing, isProcessing, saving, screen]);
 
   const saveLabel = saveError
     ? "SAVE FAILED"
@@ -253,6 +328,8 @@ export function AssessmentShell({
 
   return (
     <Sheet>
+      <ClickShield active={isProcessing} />
+
       <header className="flex h-14 shrink-0 items-center justify-between gap-4 border-b border-rule px-5 md:px-7">
         <div className="flex min-w-0 items-center gap-3.5">
           <Seal />
@@ -299,14 +376,16 @@ export function AssessmentShell({
       ) : null}
 
       <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
-        <MoveRail
-          total={total}
-          currentMove={move}
-          answeredMoves={answered}
-          skippedMoves={skipped}
-          pendingMove={pendingMove}
-          submitted={submitted}
-        />
+        <div className={cn("flex flex-col lg:flex-row", isProcessing && "pointer-events-none select-none")}>
+          <MoveRail
+            total={total}
+            currentMove={move}
+            answeredMoves={answered}
+            skippedMoves={skipped}
+            pendingMove={pendingMove}
+            submitted={submitted}
+          />
+        </div>
 
         <main className="min-w-0 flex-1">
           <div className="grid grid-cols-1 gap-y-5 px-5 pt-8 pb-10 md:grid-cols-[88px_1px_minmax(0,1fr)] md:gap-y-0 md:px-12 md:pt-12">
@@ -328,13 +407,13 @@ export function AssessmentShell({
                   options={screen.options}
                   selectedKey={selectedKey}
                   onSelect={handleSelect}
-                  locked={submitted}
+                  locked={submitted || isProcessing}
                 />
               ) : (
                 <ToolInventoryPanel
                   inventory={screen.inventory}
                   channel={channel}
-                  locked={submitted}
+                  locked={submitted || isProcessing}
                 />
               )}
             </div>
@@ -342,73 +421,132 @@ export function AssessmentShell({
         </main>
       </div>
 
-      <footer className="flex h-[72px] shrink-0 items-center justify-between gap-4 border-t border-rule px-5 md:h-[76px] md:px-12">
+      <footer className="relative z-40 flex h-[72px] shrink-0 items-center justify-between gap-4 border-t border-rule px-5 md:h-[76px] md:px-12">
         <Link
           href={backHref}
-          className="mono flex h-11 items-center border border-[#bcc3ca] bg-sheet px-5 text-[11.5px] font-semibold tracking-[0.13em] text-ink uppercase transition-colors duration-150 hover:bg-paper md:h-12 md:px-6"
+          aria-disabled={isProcessing || undefined}
+          tabIndex={isProcessing ? -1 : undefined}
+          onClick={(event) => {
+            if (isProcessing) event.preventDefault();
+          }}
+          className={cn(
+            "mono flex h-11 items-center border border-[#bcc3ca] bg-sheet px-5 text-[11.5px] font-semibold tracking-[0.13em] text-ink uppercase transition-colors duration-150 md:h-12 md:px-6",
+            isProcessing
+              ? "pointer-events-none opacity-40 cursor-wait"
+              : "hover:bg-paper",
+          )}
         >
           Back
         </Link>
 
         <span className="mono hidden text-[11px] tracking-[0.14em] text-soft md:block">
-          {screen.kind === "question"
-            ? undecided
-              ? "SELECT AN OPTION OR SKIP TO CONTINUE"
-              : "PRESS 1\u20134 TO SELECT \u00b7 S TO SKIP \u00b7 ENTER TO CONTINUE"
-            : "SEARCH OR FILTER \u00b7 ENTER TO CONTINUE"}
+          {isNextProcessing
+            ? "STORING YOUR RECORD \u00b7 PLEASE WAIT\u2026"
+            : isSkipProcessing
+              ? "STORING SKIP DECISION \u00b7 PLEASE WAIT\u2026"
+              : screen.kind === "question"
+                ? undecided
+                  ? "SELECT AN OPTION OR SKIP TO CONTINUE"
+                  : "PRESS 1\u20134 TO SELECT \u00b7 S TO SKIP \u00b7 ENTER TO CONTINUE"
+                : "SEARCH OR FILTER \u00b7 ENTER TO CONTINUE"}
         </span>
 
         <div className="flex items-center gap-1 sm:gap-3">
           <button
             type="button"
             onClick={handleSkip}
-            disabled={blocked || submitted}
+            disabled={isProcessing || blocked || submitted}
+            aria-label="Skip question"
+            aria-busy={isSkipProcessing || undefined}
             className={cn(
-              "mono h-11 px-2 text-[11.5px] font-semibold tracking-[0.13em] uppercase underline-offset-4 transition-colors duration-150 md:h-12 md:px-3",
-              blocked || submitted
-                ? "cursor-not-allowed text-soft/50"
-                : "text-soft hover:text-ink hover:underline",
+              "mono relative overflow-hidden h-11 px-3 text-[11.5px] font-semibold tracking-[0.13em] uppercase transition-all duration-150 md:h-12 md:px-3.5",
+              isSkipProcessing
+                ? "flex items-center gap-2 border border-navy bg-[#16293f] text-white shadow-sm cursor-wait"
+                : isProcessing || blocked || submitted
+                  ? "cursor-not-allowed text-soft/40 pointer-events-none"
+                  : "text-soft hover:text-ink hover:underline",
             )}
           >
-            Skip<span className="hidden sm:inline"> question</span>
+            {isSkipProcessing ? (
+              <>
+                <ParticleFlow active={true} count={36} variant="ochre" />
+                <div className="relative z-10 flex items-center gap-2">
+                  <ButtonLoader size={15} />
+                  <span>Skipping…</span>
+                </div>
+              </>
+            ) : (
+              <>
+                Skip<span className="hidden sm:inline"> question</span>
+              </>
+            )}
           </button>
 
           {move < total ? (
             <Link
               href={nextHref}
-              onClick={(event) => {
-                if (advanceBlocked) event.preventDefault();
-              }}
-              aria-disabled={advanceBlocked || undefined}
-              tabIndex={advanceBlocked ? -1 : undefined}
+              onClick={handleNextClick}
+              aria-disabled={advanceBlocked && !isNextProcessing ? "true" : undefined}
+              tabIndex={advanceBlocked && !isNextProcessing ? -1 : undefined}
+              aria-label={`Next move ${pad(move + 1)}`}
+              aria-busy={isNextProcessing || undefined}
               className={cn(
-                "mono flex h-11 items-center gap-3 border border-navy bg-navy px-5 text-[11.5px] font-semibold tracking-[0.13em] text-white uppercase transition-colors duration-150 md:h-12 md:px-6",
-                advanceBlocked
-                  ? "pointer-events-none border-rule bg-rule text-soft"
-                  : "hover:bg-[#16293f]",
+                "mono relative overflow-hidden flex h-11 items-center gap-3 border px-5 text-[11.5px] font-semibold tracking-[0.13em] uppercase transition-all duration-150 md:h-12 md:px-6",
+                isNextProcessing
+                  ? "border-navy bg-[#16293f] text-white cursor-wait shadow-sm"
+                  : advanceBlocked
+                    ? "pointer-events-none border-rule bg-rule text-soft"
+                    : "border-navy bg-navy text-white hover:bg-[#16293f]",
               )}
             >
-              Next move
-              <b className="mono border-l border-white/30 pl-3 text-[12px] font-normal tracking-normal text-navy-soft/75">
-                {pad(move + 1)}
-              </b>
+              {isNextProcessing ? (
+                <>
+                  <ParticleFlow active={true} count={42} />
+                  <div className="relative z-10 flex items-center gap-2.5">
+                    <ButtonLoader size={16} />
+                    <span>{isSavingAnswer ? "Saving move…" : isNavigating ? "Moving next…" : "Next move"}</span>
+                    <b className="mono border-l border-white/30 pl-3 text-[12px] font-normal tracking-normal text-navy-soft/85">
+                      {pad(move + 1)}
+                    </b>
+                  </div>
+                </>
+              ) : (
+                <>
+                  Next move
+                  <b className="mono border-l border-white/30 pl-3 text-[12px] font-normal tracking-normal text-navy-soft/75">
+                    {pad(move + 1)}
+                  </b>
+                </>
+              )}
             </Link>
           ) : (
             <Link
               href="/assessment/confirm"
-              onClick={(event) => {
-                if (advanceBlocked) event.preventDefault();
-              }}
-              aria-disabled={advanceBlocked || undefined}
-              tabIndex={advanceBlocked ? -1 : undefined}
+              onClick={handleNextClick}
+              aria-disabled={advanceBlocked && !isNextProcessing ? "true" : undefined}
+              tabIndex={advanceBlocked && !isNextProcessing ? -1 : undefined}
+              aria-label="Review & submit"
+              aria-busy={isNextProcessing || undefined}
               className={cn(
-                "mono flex h-11 items-center border border-navy bg-navy px-5 text-[11.5px] font-semibold tracking-[0.13em] text-white uppercase transition-colors duration-150 md:h-12 md:px-6",
-                advanceBlocked
-                  ? "pointer-events-none border-rule bg-rule text-soft"
-                  : "hover:bg-[#16293f]",
+                "mono relative overflow-hidden flex h-11 items-center gap-2.5 border px-5 text-[11.5px] font-semibold tracking-[0.13em] uppercase transition-all duration-150 md:h-12 md:px-6",
+                isNextProcessing
+                  ? "border-navy bg-[#16293f] text-white cursor-wait shadow-sm"
+                  : advanceBlocked
+                    ? "pointer-events-none border-rule bg-rule text-soft"
+                    : "border-navy bg-navy text-white hover:bg-[#16293f]",
               )}
             >
-              Review &amp; submit
+              {isNextProcessing ? (
+                <>
+                  <ParticleFlow active={true} count={42} />
+                  <div className="relative z-10 flex items-center gap-2.5">
+                    <ButtonLoader size={16} />
+                    <span>Saving &amp; reviewing…</span>
+                  </div>
+                </>
+              ) : (
+                <>Review &amp; submit</>
+              )}
             </Link>
           )}
         </div>

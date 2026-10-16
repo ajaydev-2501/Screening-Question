@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { ButtonLoader, ClickShield } from "@/components/assessment/button-loader";
+import { ParticleFlow } from "@/components/assessment/particle-flow";
 import { cn } from "@/lib/utils";
 
 /**
@@ -41,18 +43,32 @@ export function SubmitButton({ blocked }: { blocked: boolean }) {
 
   return (
     <div>
+      <ClickShield active={submitting} />
       <button
         type="button"
         onClick={submit}
         disabled={disabled}
+        aria-busy={submitting || undefined}
         className={cn(
-          "mono flex h-12 items-center justify-center border px-7 text-[11.5px] font-semibold tracking-[0.13em] uppercase transition-colors duration-150",
-          disabled
-            ? "cursor-not-allowed border-rule bg-rule text-soft"
-            : "border-navy bg-navy text-white hover:bg-[#16293f]",
+          "mono relative overflow-hidden flex h-12 items-center justify-center gap-2.5 border px-7 text-[11.5px] font-semibold tracking-[0.13em] uppercase transition-all duration-150",
+          submitting
+            ? "border-navy bg-[#16293f] text-white cursor-wait shadow-sm"
+            : disabled
+              ? "cursor-not-allowed border-rule bg-rule text-soft"
+              : "border-navy bg-navy text-white hover:bg-[#16293f]",
         )}
       >
-        {submitting ? "Filing your record…" : "Submit this record"}
+        {submitting ? (
+          <>
+            <ParticleFlow active={true} count={42} />
+            <div className="relative z-10 flex items-center gap-2.5">
+              <ButtonLoader size={16} />
+              <span>Filing your record…</span>
+            </div>
+          </>
+        ) : (
+          "Submit this record"
+        )}
       </button>
 
       {blocked ? (
