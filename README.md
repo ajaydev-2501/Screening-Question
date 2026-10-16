@@ -5,7 +5,9 @@ answers 21 moves — 20 scenario decisions scored server-side on a 1–4 profici
 sections, then Question 21, a 319-tool developer-tooling inventory with four follow-up fields. Any
 move can also be explicitly skipped: a skip is a recorded decision that scores the one-point floor
 of the scale and counts as skipped on the record, and never blocks filing — answering a skipped
-move afterwards replaces the skip. Staff read the records, evidence, and scores from an admin side
+move afterwards replaces the skip. A move cannot be carried forward undecided: Next move stays
+dormant until the candidate has selected an option or explicitly skipped. Staff read the records,
+evidence, and scores from an admin side
 that shares no surface with the candidate side, including a per-section radar graph and a
 strongest-skill callout on each candidate record.
 

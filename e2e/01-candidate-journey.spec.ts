@@ -22,6 +22,19 @@ test("a candidate answers every move, files the record, and cannot begin twice",
   await expect(page).toHaveURL(/\/assessment\?move=1$/);
   await expect(page.getByRole("heading", { level: 2 })).toBeVisible();
 
+  // --- The decision gate ------------------------------------------------------
+  // An undecided question cannot be carried forward: Next move is dormant until the candidate has
+  // selected an option or explicitly skipped. Both the pointer path and the Enter shortcut must
+  // leave the address where it is.
+  const gated = page.getByRole("link", { name: /next move/i });
+  await expect(gated).toHaveAttribute("aria-disabled", "true");
+  await expect(page.getByText("SELECT AN OPTION OR SKIP TO CONTINUE")).toBeVisible();
+  await gated.evaluate((el) => (el as HTMLElement).click());
+  await page.keyboard.press("Enter");
+  // Give a broken gate a generous beat to navigate, then prove the move never changed.
+  await page.waitForTimeout(500);
+  await expect(page).toHaveURL(/\/assessment\?move=1$/);
+
   // --- Moves 1-20 ------------------------------------------------------------
   // Every move is answered from the keyboard-free path a real candidate uses: click an option,
   // wait for the write to land, then advance. The rail mark lags the request, so the request is
@@ -38,6 +51,11 @@ test("a candidate answers every move, files the record, and cannot begin twice",
     await written;
 
     await expect(page.locator('[role="status"] span').first()).toHaveClass(/bg-certified/);
+    // The write has landed, so the move is decided — and only then does the gate open.
+    await expect(page.getByRole("link", { name: /next move/i })).not.toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
     await page.getByRole("link", { name: /next move/i }).click();
     await expect(page).toHaveURL(new RegExp(`/assessment\\?move=${move + 1}$`));
   }

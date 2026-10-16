@@ -141,6 +141,13 @@ export function AssessmentShell({
   // from the database, so moving on before the write lands would show the candidate a sheet that
   // is missing the answer they just gave.
   const blocked = saving || queued || saveError !== null;
+
+  // A question move is decided once an option is selected or a skip is on the record. An undecided
+  // move is never carried forward: the forward controls below stay dormant until then. A move that
+  // was answered or skipped earlier is decided, so revisiting it keeps Next open.
+  const undecided =
+    screen.kind === "question" && selectedKey === null && !skipped.has(move);
+  const advanceBlocked = blocked || undecided;
   const backHref = move > 1 ? `/assessment?move=${move - 1}` : "/";
   const nextHref = move < total ? `/assessment?move=${move + 1}` : "/assessment/confirm";
 
@@ -195,8 +202,8 @@ export function AssessmentShell({
   }, [blocked, persistSkip]);
 
   const goNext = useCallback(() => {
-    if (!blocked) router.push(nextHref);
-  }, [blocked, nextHref, router]);
+    if (!advanceBlocked) router.push(nextHref);
+  }, [advanceBlocked, nextHref, router]);
 
   // 1-4 selects, S skips, Enter continues. All are additions on top of the native radio keyboard
   // model, never a replacement for it, so the flow still works with the arrow keys alone.
@@ -345,7 +352,9 @@ export function AssessmentShell({
 
         <span className="mono hidden text-[11px] tracking-[0.14em] text-soft md:block">
           {screen.kind === "question"
-            ? "PRESS 1\u20134 TO SELECT \u00b7 S TO SKIP \u00b7 ENTER TO CONTINUE"
+            ? undecided
+              ? "SELECT AN OPTION OR SKIP TO CONTINUE"
+              : "PRESS 1\u20134 TO SELECT \u00b7 S TO SKIP \u00b7 ENTER TO CONTINUE"
             : "SEARCH OR FILTER \u00b7 ENTER TO CONTINUE"}
         </span>
 
@@ -368,13 +377,13 @@ export function AssessmentShell({
             <Link
               href={nextHref}
               onClick={(event) => {
-                if (blocked) event.preventDefault();
+                if (advanceBlocked) event.preventDefault();
               }}
-              aria-disabled={blocked || undefined}
-              tabIndex={blocked ? -1 : undefined}
+              aria-disabled={advanceBlocked || undefined}
+              tabIndex={advanceBlocked ? -1 : undefined}
               className={cn(
                 "mono flex h-11 items-center gap-3 border border-navy bg-navy px-5 text-[11.5px] font-semibold tracking-[0.13em] text-white uppercase transition-colors duration-150 md:h-12 md:px-6",
-                blocked
+                advanceBlocked
                   ? "pointer-events-none border-rule bg-rule text-soft"
                   : "hover:bg-[#16293f]",
               )}
@@ -388,13 +397,13 @@ export function AssessmentShell({
             <Link
               href="/assessment/confirm"
               onClick={(event) => {
-                if (blocked) event.preventDefault();
+                if (advanceBlocked) event.preventDefault();
               }}
-              aria-disabled={blocked || undefined}
-              tabIndex={blocked ? -1 : undefined}
+              aria-disabled={advanceBlocked || undefined}
+              tabIndex={advanceBlocked ? -1 : undefined}
               className={cn(
                 "mono flex h-11 items-center border border-navy bg-navy px-5 text-[11.5px] font-semibold tracking-[0.13em] text-white uppercase transition-colors duration-150 md:h-12 md:px-6",
-                blocked
+                advanceBlocked
                   ? "pointer-events-none border-rule bg-rule text-soft"
                   : "hover:bg-[#16293f]",
               )}
