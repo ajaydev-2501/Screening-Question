@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { ButtonLoader, ClickShield } from "@/components/assessment/button-loader";
-import { ParticleFlow } from "@/components/assessment/particle-flow";
+import { ClickShield } from "@/components/assessment/button-loader";
+import { ParticleLoader } from "@/components/assessment/particle-loader";
 import { cn } from "@/lib/utils";
 
 /**
@@ -60,11 +60,8 @@ export function SubmitButton({ blocked }: { blocked: boolean }) {
       >
         {submitting ? (
           <>
-            <ParticleFlow active={true} count={42} />
-            <div className="relative z-10 flex items-center gap-2.5">
-              <ButtonLoader size={16} />
-              <span>Filing your record…</span>
-            </div>
+            <ParticleLoader size={18} />
+            <span>Filing your record…</span>
           </>
         ) : (
           "Submit this record"

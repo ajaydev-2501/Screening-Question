@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 
-import { ButtonLoader, ClickShield } from "@/components/assessment/button-loader";
+import { ClickShield } from "@/components/assessment/button-loader";
 import { MoveRail } from "@/components/assessment/move-rail";
-import { ParticleFlow } from "@/components/assessment/particle-flow";
+import { ParticleLoader } from "@/components/assessment/particle-loader";
 import { QuestionPanel, type PanelOption } from "@/components/assessment/question-panel";
 import { ToolInventoryPanel } from "@/components/assessment/tool-inventory-panel";
 import { Seal, SaveMark } from "@/components/scoresheet/marks";
@@ -469,11 +469,8 @@ export function AssessmentShell({
           >
             {isSkipProcessing ? (
               <>
-                <ParticleFlow active={true} count={36} variant="ochre" />
-                <div className="relative z-10 flex items-center gap-2">
-                  <ButtonLoader size={15} />
-                  <span>Skipping…</span>
-                </div>
+                <ParticleLoader size={16} variant="ochre" />
+                <span>Skipping…</span>
               </>
             ) : (
               <>
@@ -501,14 +498,11 @@ export function AssessmentShell({
             >
               {isNextProcessing ? (
                 <>
-                  <ParticleFlow active={true} count={42} />
-                  <div className="relative z-10 flex items-center gap-2.5">
-                    <ButtonLoader size={16} />
-                    <span>{isSavingAnswer ? "Saving move…" : isNavigating ? "Moving next…" : "Next move"}</span>
-                    <b className="mono border-l border-white/30 pl-3 text-[12px] font-normal tracking-normal text-navy-soft/85">
-                      {pad(move + 1)}
-                    </b>
-                  </div>
+                  <ParticleLoader size={17} />
+                  <span>{isSavingAnswer ? "Saving move…" : isNavigating ? "Moving next…" : "Next move"}</span>
+                  <b className="mono border-l border-white/30 pl-3 text-[12px] font-normal tracking-normal text-navy-soft/85">
+                    {pad(move + 1)}
+                  </b>
                 </>
               ) : (
                 <>
@@ -538,11 +532,8 @@ export function AssessmentShell({
             >
               {isNextProcessing ? (
                 <>
-                  <ParticleFlow active={true} count={42} />
-                  <div className="relative z-10 flex items-center gap-2.5">
-                    <ButtonLoader size={16} />
-                    <span>Saving &amp; reviewing…</span>
-                  </div>
+                  <ParticleLoader size={17} />
+                  <span>Saving &amp; reviewing…</span>
                 </>
               ) : (
                 <>Review &amp; submit</>
